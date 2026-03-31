@@ -262,6 +262,8 @@ extern int sync_interlace;
 
 extern int use_lavf;
 
+extern int stream_error(stream_t *stream);
+
 // options:
 #define DEFAULT_STARTUP_DECODE_RETRY 4
 int auto_quality;
