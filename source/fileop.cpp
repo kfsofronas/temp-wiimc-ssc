@@ -1222,7 +1222,7 @@ void CleanupPath(char * path)
 	}
 
 	// Remove ../
-	if(strstr(path, "../") > 0)
+	if(strstr(path, "../") != NULL)
 	{
 		int total=0;
 		int parentCount=0;
