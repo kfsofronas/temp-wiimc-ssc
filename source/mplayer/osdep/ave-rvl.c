@@ -15,6 +15,8 @@ of Crazy Nation and the GC Linux project.
 */
 
 #include <gccore.h>
+#include <string.h> //memcpy
+#include <sys/unistd.h> //usleep
 
 #define HW_REG_BASE 0xd800000
 #define HW_GPIO1BOUT (HW_REG_BASE + 0x0c0)
@@ -70,26 +72,26 @@ static u32 __sendSlaveAddress(u8 addr)
         u32 i;
  
         aveSetSDA(0);
-        udelay(2);
+        usleep(2);
  
         aveSetSCL(0);
         for(i=0;i<8;i++) {
                 if(addr&0x80) aveSetSDA(1);
                 else aveSetSDA(0);
-                udelay(2);
+                usleep(2);
  
                 aveSetSCL(1);
-                udelay(2);
+                usleep(2);
  
                 aveSetSCL(0);
                 addr <<= 1;
         }
  
         aveSetDirection(0);
-        udelay(2);
+        usleep(2);
  
         aveSetSCL(1);
-        udelay(2);
+        usleep(2);
  
         if(aveGetSDA()!=0) {
                 return 0;
@@ -111,7 +113,7 @@ static u32 __VISendI2CData(u8 addr,void *val,u32 len)
         aveSetDirection(1);
         aveSetSCL(1);
         aveSetSDA(1);
-        udelay(4);
+        usleep(4);
  
         ret = __sendSlaveAddress(addr);
         if(ret==0) {
@@ -124,18 +126,18 @@ static u32 __VISendI2CData(u8 addr,void *val,u32 len)
                 for(j=0;j<8;j++) {
                         if(c&0x80) aveSetSDA(1);
                         else aveSetSDA(0);
-                        udelay(2);
+                        usleep(2);
  
                         aveSetSCL(1);
-                        udelay(2);
+                        usleep(2);
                         aveSetSCL(0);
  
                         c <<= 1;
                 }
                 aveSetDirection(0);
-                udelay(2);
+                usleep(2);
                 aveSetSCL(1);
-                udelay(2);
+                usleep(2);
  
                 if(aveGetSDA()!=0) {
                         return 0;
@@ -148,7 +150,7 @@ static u32 __VISendI2CData(u8 addr,void *val,u32 len)
  
         aveSetDirection(1);
         aveSetSDA(0);
-        udelay(2);
+        usleep(2);
         aveSetSDA(1);
  
         return 1;
@@ -160,7 +162,7 @@ void VIWriteI2CRegister8(u8 reg, u8 data)
         buf[0] = reg;
         buf[1] = data;
         __VISendI2CData(SLAVE_AVE,buf,2);
-        udelay(2);
+        usleep(2);
 }
  
 void VIWriteI2CRegister16(u8 reg, u16 data)
@@ -170,7 +172,7 @@ void VIWriteI2CRegister16(u8 reg, u16 data)
         buf[1] = data >> 8;
         buf[2] = data & 0xFF;
         __VISendI2CData(SLAVE_AVE,buf,3);
-        udelay(2);
+        usleep(2);
 }
  
 void VIWriteI2CRegister32(u8 reg, u32 data)
@@ -182,7 +184,7 @@ void VIWriteI2CRegister32(u8 reg, u32 data)
         buf[3] = (data >> 8) & 0xFF;
         buf[4] = data & 0xFF;
         __VISendI2CData(SLAVE_AVE,buf,5);
-        udelay(2);
+        usleep(2);
 }
 
 void VIWriteI2CRegisterBuf(u8 reg, int size, u8 *data)
@@ -191,5 +193,5 @@ void VIWriteI2CRegisterBuf(u8 reg, int size, u8 *data)
         buf[0] = reg;
         memcpy(&buf[1], data, size);
         __VISendI2CData(SLAVE_AVE,buf,size+1);
-        udelay(2);
+        usleep(2);
 }
