@@ -138,6 +138,10 @@
 #include "stream/stream_dvd.h"
 #endif
 
+#ifndef MAXPATHLEN
+#define MAXPATHLEN 1024
+#endif
+
 #ifdef GEKKO
 
 #include <malloc.h>
