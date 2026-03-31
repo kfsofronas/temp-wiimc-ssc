@@ -7,5 +7,3 @@ dir1:
 	cd fribidi && $(COMMAND1)
 dir2:
 	cd libexif && $(COMMAND1)
-dir3:
-	cd libiconv && $(COMMAND1)
