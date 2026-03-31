@@ -5,4 +5,4 @@ build/*.h
 wiimc.dol
 wiimc.elf
 *.log
-source/mplayer/ffmpeg/version.h
+*/version.h
