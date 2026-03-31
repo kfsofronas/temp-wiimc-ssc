@@ -14,6 +14,9 @@
 #define APPNAME			"WiiMC"
 #define APPVERSION		"3.0.0"
 #define APPFOLDER		"wiimc"
+#ifndef MAXPATHLEN
+#define MAXPATHLEN 		1024
+#endif
 
 enum {
 	DEVICE_SD,

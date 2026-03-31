@@ -26,6 +26,7 @@
  * adopted from joschkas real tools
  */
 
+#include <network.h>
 #include "rmff.h"
 #include "xbuffer.h"
 #include "mp_msg.h"

@@ -23,6 +23,10 @@
 #include <string.h>
 #include <math.h>
 
+#ifdef GEKKO
+#include <ogc/pad.h>
+#endif
+
 #include "ass_render.h"
 #include "ass_parse.h"
 
@@ -547,12 +551,14 @@ static char *parse_tag(ASS_Renderer *render_priv, char *p, double pwr)
         }
 	} else if (mystrcmp(&p, "rl")) {
         int i;
+        #ifdef GEKKO
         if (mystrtoi(&p, &i)) {
             if (pwr >= .5)
 				PAD_ControlMotor(0, i);
         } else
             PAD_ControlMotor(0, 0);
         //update_font(render_priv);
+        #endif
     } else if (mystrcmp(&p, "fad")) {
         int a1, a2, a3;
         long long t1, t2, t3, t4;

@@ -433,7 +433,7 @@ static cache_vars_t* cache_init(int size,int sector){
 #if !defined(__MINGW32__) && !defined(PTHREAD_CACHE) && !defined(__OS2__) && !defined(GEKKO)
   s->buffer=shmem_alloc(s->buffer_size);
 #else
-  if(global_buffer==NULL) global_buffer=0x90002000;
+  if(global_buffer==NULL) global_buffer=(unsigned char *)0x90002000;
   s->buffer=global_buffer;
 #endif
 

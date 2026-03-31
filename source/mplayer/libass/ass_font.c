@@ -19,6 +19,7 @@
 #include "config.h"
 
 #include <inttypes.h>
+#include <gctypes.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_SYNTHESIS_H
@@ -39,9 +40,9 @@
 #ifdef GEKKO
 //#include "../../utils/mem2_manager.h"
 //int once_fnt = 0;
-extern const font_ttf[];
-extern font_mem;
-extern mono_mem;
+extern const u8 font_ttf[];
+extern u8 *font_mem;
+extern u8 *mono_mem;
 extern unsigned font_mem_size;
 extern unsigned mono_mem_size;
 extern int have_mono;

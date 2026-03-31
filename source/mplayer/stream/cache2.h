@@ -19,6 +19,10 @@
 #ifndef MPLAYER_CACHE2_H
 #define MPLAYER_CACHE2_H
 
+#ifndef MAXPATHLEN
+#define MAXPATHLEN 1024
+#endif
+
 #include "stream.h"
 
 extern float cache_fill_status;
