@@ -1,0 +1,70 @@
+fribidi-mem.lo: fribidi-mem.c common.h ../config.h fribidi-common.h \
+ fribidi-config.h C:/devkitPro/devkitPPC/powerpc-eabi/include/stdlib.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/machine/ieeefp.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/_ansi.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/newlib.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/_newlib_version.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/config.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/features.h \
+ C:/devkitPro/devkitPPC/lib/gcc/powerpc-eabi/15.2.0/include/stddef.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/reent.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/_ansi.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/cdefs.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/machine/_default_types.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/_types.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/machine/_types.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/lock.h \
+ C:/devkitPro/devkitPPC/lib/gcc/powerpc-eabi/15.2.0/include/stdint.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/stdint.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/_intsup.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/_stdint.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/machine/stdlib.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/string.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/string.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/strings.h debug.h \
+ fribidi-types.h fribidi-common.h fribidi-begindecls.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/inttypes.h \
+ fribidi-enddecls.h fribidi-begindecls.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/stdio.h \
+ C:/devkitPro/devkitPPC/lib/gcc/powerpc-eabi/15.2.0/include/stdarg.h \
+ C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/stdio.h \
+ fribidi-enddecls.h mem.h
+common.h:
+../config.h:
+fribidi-common.h:
+fribidi-config.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/stdlib.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/machine/ieeefp.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/_ansi.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/newlib.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/_newlib_version.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/config.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/features.h:
+C:/devkitPro/devkitPPC/lib/gcc/powerpc-eabi/15.2.0/include/stddef.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/reent.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/_ansi.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/cdefs.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/machine/_default_types.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/_types.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/machine/_types.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/lock.h:
+C:/devkitPro/devkitPPC/lib/gcc/powerpc-eabi/15.2.0/include/stdint.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/stdint.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/_intsup.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/_stdint.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/machine/stdlib.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/string.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/string.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/strings.h:
+debug.h:
+fribidi-types.h:
+fribidi-common.h:
+fribidi-begindecls.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/inttypes.h:
+fribidi-enddecls.h:
+fribidi-begindecls.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/stdio.h:
+C:/devkitPro/devkitPPC/lib/gcc/powerpc-eabi/15.2.0/include/stdarg.h:
+C:/devkitPro/devkitPPC/powerpc-eabi/include/sys/stdio.h:
+fribidi-enddecls.h:
+mem.h:
