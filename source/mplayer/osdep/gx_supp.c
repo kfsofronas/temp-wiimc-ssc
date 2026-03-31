@@ -42,6 +42,7 @@
 #include "gx_supp.h"
 #include "../../utils/mem2_manager.h"
 #include "../../video.h"
+#include "../../wiimc.h"
 
 #define HASPECT 320
 #define VASPECT 240
@@ -492,7 +493,7 @@ void GX_ConfigTextureYUV(u16 width, u16 height, u16 chroma_width, u16 chroma_hei
 
 bool goBackto = false;
 extern int sync_interlace;
-extern timerFadeBlack; // not an actual fade, just delay drawing mplayer to avoid 1 frame flicker.
+extern int timerFadeBlack; // not an actual fade, just delay drawing mplayer to avoid 1 frame flicker.
 
 inline void DrawMPlayer()
 {
