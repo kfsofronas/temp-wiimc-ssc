@@ -42,7 +42,6 @@
 #include "gx_supp.h"
 #include "../../utils/mem2_manager.h"
 #include "../../video.h"
-#include "../../wiimc.h"
 
 #define HASPECT 320
 #define VASPECT 240
@@ -71,6 +70,8 @@ extern bool flip_pending;
 //extern int delay_amount;
 extern bool wiiTiledRender;
 extern unsigned guiDelay;
+
+extern void wiiPause(void);
 
 static int hor_pos=0, vert_pos=0;
 static float hor_zoom = 1.0f, vert_zoom = 1.0f;
