@@ -1409,7 +1409,7 @@ static int FileSortCallback(const void *f1, const void *f2)
 	if(((BROWSERENTRY *)f1)->type == TYPE_FOLDER && !(((BROWSERENTRY *)f2)->type == TYPE_FOLDER)) return -1;
 	if(!(((BROWSERENTRY *)f1)->type == TYPE_FOLDER) && ((BROWSERENTRY *)f2)->type == TYPE_FOLDER) return 1;
 
-	return stricmp(((BROWSERENTRY *)f1)->file, ((BROWSERENTRY *)f2)->file);
+	return strcasecmp(((BROWSERENTRY *)f1)->file, ((BROWSERENTRY *)f2)->file);
 }
 
 /****************************************************************************
@@ -1729,7 +1729,7 @@ int ParseJPEG()
 		while ((entry = readdir(dir)))
 		{
 			size_t length = strlen(entry->d_name);
-			if (length > 4 && stricmp(entry->d_name+length-4, ".JPG") == 0)
+			if (length > 4 && strcasecmp(entry->d_name + length - 4, ".JPG") == 0)
 			{
 				count++;
 				if(count > 9000)
