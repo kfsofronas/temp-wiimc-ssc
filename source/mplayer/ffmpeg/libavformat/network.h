@@ -60,6 +60,9 @@ int ff_neterrno(void);
 #define INADDR_LOOPBACK    ((unsigned long) 0x7f000001)  /* 127.0.0.1 */
 #define INET_ADDRSTRLEN 16
 #define gethostbyname net_gethostbyname
+/* DevkitPro libogc provides these structs */
+#define HAVE_STRUCT_SOCKADDR_STORAGE 1
+#define HAVE_STRUCT_ADDRINFO 1
 #endif
 
 #define ff_neterrno() AVERROR(errno)
