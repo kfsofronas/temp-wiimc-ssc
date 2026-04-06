@@ -27,7 +27,8 @@
 #include "dsputil.h"
 #include "binkdsp.h"
 #ifdef HAVE_PAIRED
-#include "libavutil/ppc/paired.h"
+/* Paired SIMD optimizations disabled - paired.h not reliably available */
+/* #include "libavutil/ppc/paired.h" */
 #endif
 
 #define A1  2896 /* (1/sqrt(2))<<12 */
@@ -131,6 +132,7 @@ static void scale_block_c(const uint8_t src[64]/*align 8*/, uint8_t *dst/*align 
     }
 }
 
+/* Paired SIMD optimization disabled - paired.h not reliably available
 #ifdef HAVE_PAIRED
 static void scale_block_paired(const uint8_t src[64], uint8_t *dst, int linesize)
 {
@@ -164,11 +166,13 @@ static void scale_block_paired(const uint8_t src[64], uint8_t *dst, int linesize
 	}
 }
 #endif
+*/
 
 void ff_binkdsp_init(BinkDSPContext *c)
 {
     c->idct_add    = bink_idct_add_c;
     c->idct_put    = bink_idct_put_c;    
     c->scale_block = scale_block_c;
-    if (HAVE_PAIRED) c->scale_block = scale_block_paired;
+    /* Paired SIMD optimization disabled - paired.h not reliably available */
+    /* if (HAVE_PAIRED) c->scale_block = scale_block_paired; */
 }

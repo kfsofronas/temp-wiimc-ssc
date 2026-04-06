@@ -24,13 +24,13 @@
 #include "utils/mem2_manager.h"
 #include "utils/http.h"
 
-#define SAVEBUFFERSIZE (64*1024)
+#define SAVEBUFFERSIZE (64 * 1024)
 
 struct SWiiSettings WiiSettings;
-static char * savebuffer = NULL;
+static char *savebuffer = NULL;
 
 LANG languages[LANGUAGE_SIZE] = {
-	{ "Default", "", "" },
+	{"Default", "", ""},
 	/*{ "Abkhazian", "ab", "abk" },
 	{ "Afar", "aa", "aar" },
 	{ "Afrikaans", "af", "afr" },
@@ -58,45 +58,45 @@ LANG languages[LANGUAGE_SIZE] = {
 	{ "Byelorussian", "be", "bel" },
 	{ "Cambodian", "km", "khm" },
 	{ "Catalan", "ca", "cat" },*/
-	
+
 	/*{ "Corsican", "co", "cos" },
 	{ "Ceske", "cs", "cze" },
 	{ "Dansk", "da", "dan" },*/
-	{ "English", "en", "eng" },
+	{"English", "en", "eng"},
 	//{ "Esperanto", "eo", "epo" },
-	{ "Espa�ol", "es", "spa" },
+	{"Espa�ol", "es", "spa"},
 	/*{ "Estonian", "et", "est" },
 	{ "Finnish", "fi", "fin" },
 	{ "Fiji", "fj", "fij" },
 	{ "Faroese", "fo", "fao" }, */
-	{ "Fran�ais", "fr", "fre" },
-/*	{ "Frisian", "fy", "fry" },
-	{ "Galician", "gl", "glg" },
-	{ "Georgian", "ka", "geo" },
-	{ "Greek", "el", "gre" },
-	{ "Greenlandic", "kl", "kal" },
-	{ "Guarani", "gn", "grn" },
-	{ "Gujarati", "gu", "guj" },
-	{ "Hausa", "ha", "hau" },
-	{ "Hebrew", "he", "heb" },
-	{ "Hindi", "hi", "hin" },
-	{ "Hrvatski", "hr", "scr" },
-	{ "Indonesian", "id", "ind" },
-	{ "Interlingue", "ie", "ile" },
-	{ "Inupiak", "ik", "ipk" },
-	{ "Irish", "ga", "gle" },
-	{ "Islenska", "is", "ice" },
-	{ "Inuktitut", "iu", "iku" },*/
-	{ "Italiano", "it", "ita" },
-	{ "Portugues", "pt", "por" },
+	{"Fran�ais", "fr", "fre"},
+	/*	{ "Frisian", "fy", "fry" },
+		{ "Galician", "gl", "glg" },
+		{ "Georgian", "ka", "geo" },
+		{ "Greek", "el", "gre" },
+		{ "Greenlandic", "kl", "kal" },
+		{ "Guarani", "gn", "grn" },
+		{ "Gujarati", "gu", "guj" },
+		{ "Hausa", "ha", "hau" },
+		{ "Hebrew", "he", "heb" },
+		{ "Hindi", "hi", "hin" },
+		{ "Hrvatski", "hr", "scr" },
+		{ "Indonesian", "id", "ind" },
+		{ "Interlingue", "ie", "ile" },
+		{ "Inupiak", "ik", "ipk" },
+		{ "Irish", "ga", "gle" },
+		{ "Islenska", "is", "ice" },
+		{ "Inuktitut", "iu", "iku" },*/
+	{"Italiano", "it", "ita"},
+	{"Portugues", "pt", "por"},
 	//{ "Deutsch", "de", "ger" },
-	{ "Chinese", "zh", "chi" },
-	{ "Japanese", "ja", "jpn" },
+	{"Chinese", "zh", "chi"},
+	{"Japanese", "ja", "jpn"},
 	//{ "Javanese", "jw", "jav" },
 	//{ "Kannada", "kn", "kan" },
 	//{ "Kashmiri", "ks", "kas" },
 	//{ "Kazakh", "kk", "kaz" },
-	{ "Korean", "ko", "kor" }
+	{"Korean", "ko", "kor"}
 	/*{ "Kurdish", "ku", "kur" },
 	{ "Kinyarwanda", "rw", "kin" },
 	{ "Kirghiz", "ky", "kir" },
@@ -174,45 +174,44 @@ LANG languages[LANGUAGE_SIZE] = {
 
 int GetLangIndex(char *lang)
 {
-	if(lang[0] == 0)
+	if (lang[0] == 0)
 		return 0;
 
-	for(int i=1; i < LANGUAGE_SIZE; i++)
-		if(strcmp(lang, languages[i].abbrev) == 0)
+	for (int i = 1; i < LANGUAGE_SIZE; i++)
+		if (strcmp(lang, languages[i].abbrev) == 0)
 			return i;
 	return 0;
 }
 
 CP codepages[CODEPAGE_SIZE] = {
-	{ "", "" },
-	{ "utf-8", "UTF-8" },
-	{ "ISO-8859-1", "Western European" },
-	{ "ISO-8859-2", "Eastern European" },
-	{ "ISO-8859-3", "South European" },
-	{ "ISO-8859-4", "North European" },
-	{ "ISO-8859-5", "Cyrillic alphabets" },
-	{ "ISO-8859-6", "Arabic" },
-	{ "ISO-8859-7", "Greek" },
-	{ "ISO-8859-8", "Hebrew" },
-	{ "ISO-8859-9", "Turkish" },
-	{ "ISO-8859-10", "Nordic" },
-	{ "ISO-8859-11", "Thai" },
-	{ "ISO-8859-13", "Baltic and Polish" },
-	{ "ISO-8859-14", "Celtic" },
-	{ "Windows-1250", "Central/Eastern European" },
-	{ "Windows-1251", "Cyrillic alphabets" },
-	{ "Windows-1252", "Western European" },
-	{ "Windows-1253", "Greek" },
-	{ "Windows-1254", "Turkish" },
-	{ "Windows-1255", "Hebrew" },
-	{ "Windows-1256", "Arabic" },
-	{ "Windows-1257", "Baltic" },
-	{ "Windows-1258", "Vietnamese" },
-	{ "shift_jis", "Japanese (Shift JIS)" },
-	{ "gb2312", "Chinese Simplified (GB2312)" },
-	{ "big5", "Chinese Traditional (Big5)" },
-	{ "cp949", "Korean (CP949)" }
-};
+	{"", ""},
+	{"utf-8", "UTF-8"},
+	{"ISO-8859-1", "Western European"},
+	{"ISO-8859-2", "Eastern European"},
+	{"ISO-8859-3", "South European"},
+	{"ISO-8859-4", "North European"},
+	{"ISO-8859-5", "Cyrillic alphabets"},
+	{"ISO-8859-6", "Arabic"},
+	{"ISO-8859-7", "Greek"},
+	{"ISO-8859-8", "Hebrew"},
+	{"ISO-8859-9", "Turkish"},
+	{"ISO-8859-10", "Nordic"},
+	{"ISO-8859-11", "Thai"},
+	{"ISO-8859-13", "Baltic and Polish"},
+	{"ISO-8859-14", "Celtic"},
+	{"Windows-1250", "Central/Eastern European"},
+	{"Windows-1251", "Cyrillic alphabets"},
+	{"Windows-1252", "Western European"},
+	{"Windows-1253", "Greek"},
+	{"Windows-1254", "Turkish"},
+	{"Windows-1255", "Hebrew"},
+	{"Windows-1256", "Arabic"},
+	{"Windows-1257", "Baltic"},
+	{"Windows-1258", "Vietnamese"},
+	{"shift_jis", "Japanese (Shift JIS)"},
+	{"gb2312", "Chinese Simplified (GB2312)"},
+	{"big5", "Chinese Traditional (Big5)"},
+	{"cp949", "Korean (CP949)"}};
 
 /****************************************************************************
  * Prepare settings data
@@ -227,25 +226,25 @@ static mxml_node_t *elem = NULL;
 
 static char temp[20];
 
-static const char * toStr(int i)
+static const char *toStr(int i)
 {
 	sprintf(temp, "%d", i);
 	return temp;
 }
-static const char * FtoStr(float i)
+static const char *FtoStr(float i)
 {
 	sprintf(temp, "%.2f", i);
 	return temp;
 }
 
-static void createXMLSection(const char * name, const char * description)
+static void createXMLSection(const char *name, const char *description)
 {
 	section = mxmlNewElement(data, "section");
 	mxmlElementSetAttr(section, "name", name);
 	mxmlElementSetAttr(section, "description", description);
 }
 
-static void createXMLSetting(const char * name, const char * description, const char * value)
+static void createXMLSetting(const char *name, const char *description, const char *value)
 {
 	item = mxmlNewElement(section, "setting");
 	mxmlElementSetAttr(item, "name", name);
@@ -253,7 +252,7 @@ static void createXMLSetting(const char * name, const char * description, const 
 	mxmlElementSetAttr(item, "description", description);
 }
 
-static void createXMLVariable(const char * name, const char * description, const char * value)
+static void createXMLVariable(const char *name, const char *description, const char *value)
 {
 	elem = mxmlNewElement(item, "variable");
 	mxmlElementSetAttr(elem, "name", name);
@@ -289,36 +288,35 @@ static void createXMLFTPSite(int i)
 	createXMLVariable("displayname", "FTP Display Name", WiiSettings.ftpConf[i].displayname);
 }
 
-static const char * XMLSaveCallback(mxml_node_t *node, int where)
+static const char *XMLSaveCallback(mxml_node_t *node, int where)
 {
 	const char *name;
 
 	name = mxmlGetElement(node);
 
-	if(where == MXML_WS_BEFORE_CLOSE)
+	if (where == MXML_WS_BEFORE_CLOSE)
 	{
-		if(!strcmp(name, "file") || !strcmp(name, "section"))
+		if (!strcmp(name, "file") || !strcmp(name, "section"))
 			return ("\n");
-		else if(!strcmp(name, "smbshare") || !strcmp(name, "ftpsite"))
+		else if (!strcmp(name, "smbshare") || !strcmp(name, "ftpsite"))
 			return ("\n\t");
 	}
 	if (where == MXML_WS_BEFORE_OPEN)
 	{
-		if(!strcmp(name, "file"))
+		if (!strcmp(name, "file"))
 			return ("\n");
-		else if(!strcmp(name, "section"))
+		else if (!strcmp(name, "section"))
 			return ("\n\n");
-		else if(!strcmp(name, "setting") || !strcmp(name, "smbshare") || !strcmp(name, "ftpsite"))
+		else if (!strcmp(name, "setting") || !strcmp(name, "smbshare") || !strcmp(name, "ftpsite"))
 			return ("\n\t");
-		else if(!strcmp(name, "variable"))
+		else if (!strcmp(name, "variable"))
 			return ("\n\t\t");
 	}
 	return (NULL);
 }
 
-
 static int
-prepareSettingsData ()
+prepareSettingsData()
 {
 	xml = mxmlNewXML("1.0");
 	mxmlSetWrapMargin(0); // disable line wrapping
@@ -383,8 +381,8 @@ prepareSettingsData ()
 	createXMLSection("DVD", "DVD Settings");
 	createXMLSetting("dvdMenu", "DVD Menu", toStr(WiiSettings.dvdMenu));
 	createXMLSetting("dvdDisabled", "DVD Disabled", toStr(WiiSettings.dvdDisabled));
-	//createXMLSetting("dvdSyncType", "DVD Sync Type", toStr(WiiSettings.dvdSyncType));
-	// Online Media
+	// createXMLSetting("dvdSyncType", "DVD Sync Type", toStr(WiiSettings.dvdSyncType));
+	//  Online Media
 	createXMLSection("Online Media", "Online Media Settings");
 	createXMLSetting("onlineCacheFill", "Online Cache Fill %", toStr(WiiSettings.onlineCacheFill));
 	createXMLSetting("onlinemediaFolder", "Online media folder", WiiSettings.onlinemediaFolder);
@@ -393,9 +391,9 @@ prepareSettingsData ()
 	createXMLSetting("onlineBanners", "Online Screensaver", toStr(WiiSettings.onlineBanners));
 	// Network
 	createXMLSection("Network", "Network Settings");
-	for(int i=0; i<MAX_SHARES; i++)
+	for (int i = 0; i < MAX_SHARES; i++)
 		createXMLSMBShare(i);
-	for(int i=0; i<MAX_SHARES; i++)
+	for (int i = 0; i < MAX_SHARES; i++)
 		createXMLFTPSite(i);
 	// Subtitles
 	createXMLSection("Subtitles", "Subtitle Settings");
@@ -409,7 +407,7 @@ prepareSettingsData ()
 	createXMLSetting("outline", "Outline override", FtoStr(WiiSettings.outline));
 	createXMLSetting("shadow", "Shadow override", FtoStr(WiiSettings.shadow));
 	createXMLSetting("bold", "Always bold typeface", toStr(WiiSettings.bold));
-	createXMLSetting("monofont", "Use monospaced font", toStr(WiiSettings.monofont));	
+	createXMLSetting("monofont", "Use monospaced font", toStr(WiiSettings.monofont));
 
 	int datasize = mxmlSaveString(xml, (char *)savebuffer, SAVEBUFFERSIZE, XMLSaveCallback);
 
@@ -423,54 +421,54 @@ prepareSettingsData ()
  * Load XML elements into variables for an individual variable
  ***************************************************************************/
 
-static void loadXMLSetting(char * var, const char * name, int maxsize)
+static void loadXMLSetting(char *var, const char *name, int maxsize)
 {
 	item = mxmlFindElement(xml, xml, "setting", "name", name, MXML_DESCEND);
-	if(item)
+	if (item)
 	{
-		const char * tmp = mxmlElementGetAttr(item, "value");
-		if(tmp)
+		const char *tmp = mxmlElementGetAttr(item, "value");
+		if (tmp)
 			snprintf(var, maxsize, "%s", tmp);
 	}
 }
-static void loadXMLSetting(int * var, const char * name)
+static void loadXMLSetting(int *var, const char *name)
 {
 	item = mxmlFindElement(xml, xml, "setting", "name", name, MXML_DESCEND);
-	if(item)
+	if (item)
 	{
-		const char * tmp = mxmlElementGetAttr(item, "value");
-		if(tmp)
+		const char *tmp = mxmlElementGetAttr(item, "value");
+		if (tmp)
 			*var = atoi(tmp);
 	}
 }
-static void loadXMLSetting(float * var, const char * name)
+static void loadXMLSetting(float *var, const char *name)
 {
 	item = mxmlFindElement(xml, xml, "setting", "name", name, MXML_DESCEND);
-	if(item)
+	if (item)
 	{
-		const char * tmp = mxmlElementGetAttr(item, "value");
-		if(tmp)
+		const char *tmp = mxmlElementGetAttr(item, "value");
+		if (tmp)
 			*var = atof(tmp);
 	}
 }
 
-static void loadXMLVariable(char * var, const char * name, int maxsize)
+static void loadXMLVariable(char *var, const char *name, int maxsize)
 {
 	elem = mxmlFindElement(item, xml, "variable", "name", name, MXML_DESCEND);
-	if(elem)
+	if (elem)
 	{
-		const char * tmp = mxmlElementGetAttr(elem, "value");
-		if(tmp)
+		const char *tmp = mxmlElementGetAttr(elem, "value");
+		if (tmp)
 			snprintf(var, maxsize, "%s", tmp);
 	}
 }
-static void loadXMLVariable(int * var, const char * name)
+static void loadXMLVariable(int *var, const char *name)
 {
 	elem = mxmlFindElement(item, xml, "variable", "name", name, MXML_DESCEND);
-	if(elem)
+	if (elem)
 	{
-		const char * tmp = mxmlElementGetAttr(elem, "value");
-		if(tmp)
+		const char *tmp = mxmlElementGetAttr(elem, "value");
+		if (tmp)
 			*var = atoi(tmp);
 	}
 }
@@ -479,7 +477,7 @@ static void loadXMLSMBShare(int i)
 {
 	item = mxmlFindElement(xml, xml, "smbshare", "name", toStr(i), MXML_DESCEND);
 
-	if(item)
+	if (item)
 	{
 		// find variables
 		loadXMLVariable(WiiSettings.smbConf[i].ip, "ip", sizeof(WiiSettings.smbConf[i].ip));
@@ -494,7 +492,7 @@ static void loadXMLFTPSite(int i)
 {
 	item = mxmlFindElement(xml, xml, "ftpsite", "name", toStr(i), MXML_DESCEND);
 
-	if(item)
+	if (item)
 	{
 		// find variables
 		loadXMLVariable(WiiSettings.ftpConf[i].ip, "ip", sizeof(WiiSettings.ftpConf[i].ip));
@@ -507,13 +505,13 @@ static void loadXMLFTPSite(int i)
 	}
 }
 
-static void RecurseOnlineMedia(mxml_node_t * top, char * path)
+static void RecurseOnlineMedia(mxml_node_t *top, char *path)
 {
-	mxml_node_t * next;
+	mxml_node_t *next;
 
 	next = mxmlFindElement(top, top, "link", NULL, NULL, MXML_DESCEND_FIRST);
 
-	while(next != NULL)
+	while (next != NULL)
 	{
 		const char *name = mxmlElementGetAttr(next, "name");
 		const char *addr = mxmlElementGetAttr(next, "addr");
@@ -521,57 +519,57 @@ static void RecurseOnlineMedia(mxml_node_t * top, char * path)
 		const char *type = mxmlElementGetAttr(next, "type");
 		const char *tunein = mxmlElementGetAttr(next, "tunein");
 
-		if(name && addr) // this is a link
+		if (name && addr) // this is a link
 		{
 			BROWSERENTRY *o_entry = AddEntryOnlineMedia();
-			if(!o_entry)
+			if (!o_entry)
 				break;
 
 			o_entry->file = mem2_strdup(path, MEM2_BROWSER);
-			if(!o_entry->file) // no mem
-			{
-				DeleteEntryOnlineMedia(o_entry);
-				break;
-			}
-			
-			o_entry->url = mem2_strdup(addr, MEM2_BROWSER);
-			if(!o_entry->url) // no mem
-			{
-				DeleteEntryOnlineMedia(o_entry);
-				break;
-			}
-			
-			o_entry->display = mem2_strdup(name, MEM2_BROWSER);
-			if(!o_entry->display) // no mem
+			if (!o_entry->file) // no mem
 			{
 				DeleteEntryOnlineMedia(o_entry);
 				break;
 			}
 
-			if(image)
+			o_entry->url = mem2_strdup(addr, MEM2_BROWSER);
+			if (!o_entry->url) // no mem
+			{
+				DeleteEntryOnlineMedia(o_entry);
+				break;
+			}
+
+			o_entry->display = mem2_strdup(name, MEM2_BROWSER);
+			if (!o_entry->display) // no mem
+			{
+				DeleteEntryOnlineMedia(o_entry);
+				break;
+			}
+
+			if (image)
 			{
 				o_entry->image = mem2_strdup(image, MEM2_BROWSER);
-				if(!o_entry->image) // no mem
+				if (!o_entry->image) // no mem
 				{
 					DeleteEntryOnlineMedia(o_entry);
 					break;
 				}
 			}
-			
-			if(tunein)
+
+			if (tunein)
 			{
 				o_entry->tunein = mem2_strdup(tunein, MEM2_BROWSER);
-				if(!o_entry->tunein) // no mem
+				if (!o_entry->tunein) // no mem
 				{
 					DeleteEntryOnlineMedia(o_entry);
 					break;
 				}
 			}
-			if(type)
+			if (type)
 			{
-				if(strncmp(type, "search", 6) == 0)
+				if (strncmp(type, "search", 6) == 0)
 					o_entry->type = TYPE_SEARCH;
-				else if(strncmp(type, "playlist", 8) == 0)
+				else if (strncmp(type, "playlist", 8) == 0)
 					o_entry->type = TYPE_PLAYLIST;
 				else
 					o_entry->type = TYPE_FILE;
@@ -581,7 +579,7 @@ static void RecurseOnlineMedia(mxml_node_t * top, char * path)
 				char ext[7];
 				GetExt(o_entry->url, ext);
 
-				if(IsPlaylistExt(ext))
+				if (IsPlaylistExt(ext))
 					o_entry->type = TYPE_PLAYLIST;
 				else
 					o_entry->type = TYPE_FILE;
@@ -592,14 +590,14 @@ static void RecurseOnlineMedia(mxml_node_t * top, char * path)
 
 	next = mxmlFindElement(top, top, "folder", NULL, NULL, MXML_DESCEND_FIRST);
 
-	while(next != NULL)
+	while (next != NULL)
 	{
-		const char * name = mxmlElementGetAttr(next, "name");
-		
-		if(name) // this is a folder
+		const char *name = mxmlElementGetAttr(next, "name");
+
+		if (name) // this is a folder
 		{
 			char *newpath;
-			newpath = (char*) malloc((MAXPATHLEN+1)*sizeof(char));
+			newpath = (char *)malloc((MAXPATHLEN + 1) * sizeof(char));
 			snprintf(newpath, MAXPATHLEN, "%s%s/", path, name);
 			RecurseOnlineMedia(next, newpath);
 			free(newpath);
@@ -611,13 +609,13 @@ static void RecurseOnlineMedia(mxml_node_t * top, char * path)
 /****************************************************************************
  * Load online media entries from specified file
  ***************************************************************************/
-static void LoadOnlineMediaFile(char * filepath)
+static void LoadOnlineMediaFile(char *filepath)
 {
 	int offset = 0;
 
 	savebuffer = (char *)mem2_malloc(SAVEBUFFERSIZE, MEM2_OTHER);
 
-	if(!savebuffer)
+	if (!savebuffer)
 		return;
 
 	memset(savebuffer, 0, SAVEBUFFERSIZE);
@@ -627,43 +625,44 @@ static void LoadOnlineMediaFile(char * filepath)
 	{
 		xml = mxmlLoadString(NULL, savebuffer, MXML_TEXT_CALLBACK);
 
-		if(xml)
+		if (xml)
 		{
 			data = mxmlFindElement(xml, xml, "file", NULL, NULL, MXML_DESCEND);
-			if(data) RecurseOnlineMedia(data, (char *)"");
+			if (data)
+				RecurseOnlineMedia(data, (char *)"");
 			mxmlDelete(xml);
 		}
 	}
 	mem2_free(savebuffer, MEM2_OTHER);
 }
 
-static void RecurseThumbs(mxml_node_t * top, char * path)
+static void RecurseThumbs(mxml_node_t *top, char *path)
 {
-	mxml_node_t * next;
+	mxml_node_t *next;
 
 	next = mxmlFindElement(top, top, "image", NULL, NULL, MXML_DESCEND_FIRST);
 
-	while(next != NULL)
+	while (next != NULL)
 	{
 		const char *number = mxmlElementGetAttr(next, "number");
 		const char *year = mxmlElementGetAttr(next, "year");
 		const char *desc = mxmlElementGetAttr(next, "desc");
 
-		if(number)
+		if (number)
 		{
-			//loadXMLVal(&WiiSettings.numThumb, "number");
-			WiiSettings.numThumb = atoi(number); //mem2_strdup(number, MEM2_BROWSER);
-		//	printf("THUMB: %d", WiiSettings.numThumb);
+			// loadXMLVal(&WiiSettings.numThumb, "number");
+			WiiSettings.numThumb = atoi(number); // mem2_strdup(number, MEM2_BROWSER);
+			//	printf("THUMB: %d", WiiSettings.numThumb);
 
-			if(year)
+			if (year)
 			{
 				WiiSettings.yearNum = mem2_strdup(year, MEM2_DESC);
 			}
-			if(desc)
+			if (desc)
 			{
 				WiiSettings.descTxt = mem2_strdup(desc, MEM2_DESC);
 			}
-			//ShowAreaInfo(MEM2_BROWSER);
+			// ShowAreaInfo(MEM2_BROWSER);
 		}
 		next = mxmlFindElement(next, top, "image", NULL, NULL, MXML_NO_DESCEND);
 	}
@@ -672,28 +671,29 @@ static void RecurseThumbs(mxml_node_t * top, char * path)
 /****************************************************************************
  * Load number of thumbs, year, and desc from specified file
  ***************************************************************************/
-void LoadThumbsFile(char * filepath)
+void LoadThumbsFile(char *filepath)
 {
 	int offset = 0;
 
 	savebuffer = (char *)mem2_malloc(SAVEBUFFERSIZE, MEM2_OTHER);
 
-	if(!savebuffer)
+	if (!savebuffer)
 		return;
 
 	memset(savebuffer, 0, SAVEBUFFERSIZE);
 	offset = LoadFile(savebuffer, SAVEBUFFERSIZE, filepath, SILENT);
 
-	//printf("GIMMIE %s", filepath);
-	
+	// printf("GIMMIE %s", filepath);
+
 	if (offset > 0)
 	{
 		xml = mxmlLoadString(NULL, savebuffer, MXML_TEXT_CALLBACK);
 
-		if(xml)
+		if (xml)
 		{
 			data = mxmlFindElement(xml, xml, "file", NULL, NULL, MXML_DESCEND);
-			if(data) RecurseThumbs(data, (char *)"");
+			if (data)
+				RecurseThumbs(data, (char *)"");
 			mxmlDelete(xml);
 		}
 	}
@@ -703,14 +703,16 @@ void LoadThumbsFile(char * filepath)
 /****************************************************************************
  * Load number of thumbs, year, and desc from specified HTTP link
  ***************************************************************************/
-void LoadThumbsFileHTTP(char * filepath)
+void LoadThumbsFileHTTP(char *filepath)
 {
 	int offset = 0;
-	
+
 	// This case is to reduce the number of http_requests
 	// when using dynamic artwork.
-	if(filepath == NULL) {
-		if (WiiSettings.descTxt && WiiSettings.yearNum) {
+	if (filepath == NULL)
+	{
+		if (WiiSettings.descTxt && WiiSettings.yearNum)
+		{
 			WiiSettings.descTxt = NULL;
 			WiiSettings.yearNum = NULL;
 		}
@@ -719,7 +721,7 @@ void LoadThumbsFileHTTP(char * filepath)
 
 	savebuffer = (char *)mem2_malloc(SAVEBUFFERSIZE, MEM2_OTHER);
 
-	if(!savebuffer)
+	if (!savebuffer)
 		return;
 
 	memset(savebuffer, 0, SAVEBUFFERSIZE);
@@ -729,13 +731,16 @@ void LoadThumbsFileHTTP(char * filepath)
 	{
 		xml = mxmlLoadString(NULL, savebuffer, MXML_TEXT_CALLBACK);
 
-		if(xml)
+		if (xml)
 		{
 			data = mxmlFindElement(xml, xml, "file", NULL, NULL, MXML_DESCEND);
-			if(data) RecurseThumbs(data, (char *)"");
+			if (data)
+				RecurseThumbs(data, (char *)"");
 			mxmlDelete(xml);
 		}
-	} else if (WiiSettings.descTxt && WiiSettings.yearNum) {  // Works well
+	}
+	else if (WiiSettings.descTxt && WiiSettings.yearNum)
+	{ // Works well
 		WiiSettings.descTxt = NULL;
 		WiiSettings.yearNum = NULL;
 	}
@@ -747,7 +752,7 @@ void LoadThumbsFileHTTP(char * filepath)
  *
  * Sets all the defaults!
  ***************************************************************************/
-void DefaultSettings ()
+void DefaultSettings()
 {
 	memset(&WiiSettings, 0, sizeof(SWiiSettings));
 
@@ -794,7 +799,7 @@ void DefaultSettings ()
 	WiiSettings.videoDf = 0;
 	WiiSettings.viWidth = 0;
 	WiiSettings.skipLoop = 0;
-	WiiSettings.interlaceHandle = 1; //let TV handle it
+	WiiSettings.interlaceHandle = 1; // let TV handle it
 	// Music
 	WiiSettings.playOrder = PLAY_SINGLE;
 	WiiSettings.screensaverArt = ART_NONE;
@@ -803,22 +808,22 @@ void DefaultSettings ()
 	// DVD
 	WiiSettings.dvdMenu = 1;
 	WiiSettings.dvdDisabled = 0;
-	//WiiSettings.dvdSyncType = 0;
-	// Online Media
+	// WiiSettings.dvdSyncType = 0;
+	//  Online Media
 	WiiSettings.onlineCacheFill = 20;
 	WiiSettings.onlinemediaFolder[0] = 0;
 	WiiSettings.yggdrasilQuality = YGG_TUNEIN;
 	WiiSettings.anisonfmQuality = ANISON_TUNEIN_ANISON;
 	WiiSettings.onlineBanners = 1;
 	// Network
-	for(int i=0; i<MAX_SHARES; i++)
+	for (int i = 0; i < MAX_SHARES; i++)
 	{
 		WiiSettings.smbConf[i].displayname[0] = 0;
 		WiiSettings.smbConf[i].ip[0] = 0;
 		WiiSettings.smbConf[i].share[0] = 0;
 		WiiSettings.smbConf[i].user[0] = 0;
 		WiiSettings.smbConf[i].pwd[0] = 0;
-	
+
 		WiiSettings.ftpConf[i].displayname[0] = 0;
 		WiiSettings.ftpConf[i].ip[0] = 0;
 		WiiSettings.ftpConf[i].folder[0] = 0;
@@ -849,255 +854,254 @@ void DefaultSettings ()
 static void FixInvalidSettings()
 {
 	// Global
-	if(WiiSettings.language < 0 || WiiSettings.language > LANG_LENGTH)
+	if (WiiSettings.language < 0 || WiiSettings.language > LANG_LENGTH)
 		WiiSettings.language = LANG_ENGLISH;
-	if(WiiSettings.volume < 0 || WiiSettings.volume > 100)
+	if (WiiSettings.volume < 0 || WiiSettings.volume > 100)
 		WiiSettings.volume = 50;
-	if(WiiSettings.hideExtensions != 1 && WiiSettings.hideExtensions != 0)
+	if (WiiSettings.hideExtensions != 1 && WiiSettings.hideExtensions != 0)
 		WiiSettings.hideExtensions = 1;
-	if(WiiSettings.exitAction < 0 || WiiSettings.exitAction > EXIT_LOADER)
+	if (WiiSettings.exitAction < 0 || WiiSettings.exitAction > EXIT_LOADER)
 		WiiSettings.exitAction = EXIT_AUTO;
-	if(WiiSettings.rumble != 1 && WiiSettings.rumble != 0)
+	if (WiiSettings.rumble != 1 && WiiSettings.rumble != 0)
 		WiiSettings.rumble = 1;
-	if(WiiSettings.screensaverDelay < 120 || WiiSettings.screensaverDelay > 3600)
+	if (WiiSettings.screensaverDelay < 120 || WiiSettings.screensaverDelay > 3600)
 		WiiSettings.screensaverDelay = 300;
-	if(WiiSettings.inactivityShutdown < 0 || WiiSettings.inactivityShutdown > 8)
+	if (WiiSettings.inactivityShutdown < 0 || WiiSettings.inactivityShutdown > 8)
 		WiiSettings.inactivityShutdown = 2;
-	if(WiiSettings.lockFolders != 1 && WiiSettings.lockFolders != 0)
+	if (WiiSettings.lockFolders != 1 && WiiSettings.lockFolders != 0)
 		WiiSettings.lockFolders = 0;
-	if(WiiSettings.startArea < MENU_BROWSE_VIDEOS || WiiSettings.startArea > MENU_BROWSE_ONLINEMEDIA)
+	if (WiiSettings.startArea < MENU_BROWSE_VIDEOS || WiiSettings.startArea > MENU_BROWSE_ONLINEMEDIA)
 		WiiSettings.startArea = MENU_BROWSE_VIDEOS;
-	if(WiiSettings.dvdDisabled && WiiSettings.startArea == MENU_DVD)
+	if (WiiSettings.dvdDisabled && WiiSettings.startArea == MENU_DVD)
 		WiiSettings.startArea = MENU_BROWSE_VIDEOS;
-	if(WiiSettings.artwork < 0 || WiiSettings.artwork > 1)
+	if (WiiSettings.artwork < 0 || WiiSettings.artwork > 1)
 		WiiSettings.artwork = 0;
-	if(WiiSettings.bannerLimit < 0 || WiiSettings.bannerLimit > 9999)
+	if (WiiSettings.bannerLimit < 0 || WiiSettings.bannerLimit > 9999)
 		WiiSettings.bannerLimit = 0;
-	if(WiiSettings.jpegQuality < 0 || WiiSettings.jpegQuality > 1)
+	if (WiiSettings.jpegQuality < 0 || WiiSettings.jpegQuality > 1)
 		WiiSettings.jpegQuality = 0;
-	if(WiiSettings.night < 0 || WiiSettings.night > 1)
+	if (WiiSettings.night < 0 || WiiSettings.night > 1)
 		WiiSettings.night = 0;
-	if(WiiSettings.screenDim < 0 || WiiSettings.screenDim > 1)
+	if (WiiSettings.screenDim < 0 || WiiSettings.screenDim > 1)
 		WiiSettings.screenDim = 0;
-	if(WiiSettings.doubleStrike < 0 || WiiSettings.doubleStrike > 1)
+	if (WiiSettings.doubleStrike < 0 || WiiSettings.doubleStrike > 1)
 		WiiSettings.doubleStrike = 0;
-	if(WiiSettings.libass < 0 || WiiSettings.libass > 1)
+	if (WiiSettings.libass < 0 || WiiSettings.libass > 1)
 		WiiSettings.libass = 1;
-	if(WiiSettings.saveExit < 0 || WiiSettings.saveExit > 1)
+	if (WiiSettings.saveExit < 0 || WiiSettings.saveExit > 1)
 		WiiSettings.saveExit = 1;
-	if(WiiSettings.force576p < 0 || WiiSettings.force576p > 1)
+	if (WiiSettings.force576p < 0 || WiiSettings.force576p > 1)
 		WiiSettings.force576p = 0;
-	if(WiiSettings.tiledRender < 0 || WiiSettings.tiledRender > 2)
+	if (WiiSettings.tiledRender < 0 || WiiSettings.tiledRender > 2)
 		WiiSettings.tiledRender = 0;
 
 	CleanupPath(WiiSettings.artworkFolder);
 	CleanupPath(WiiSettings.bannerFolder);
 
 	// Videos
-	if(WiiSettings.videoZoomHor < 0.5 || WiiSettings.videoZoomHor > 1.5)
+	if (WiiSettings.videoZoomHor < 0.5 || WiiSettings.videoZoomHor > 1.5)
 		WiiSettings.videoZoomHor = 1;
-	if(WiiSettings.videoZoomVert < 0.5 || WiiSettings.videoZoomVert > 1.5)
+	if (WiiSettings.videoZoomVert < 0.5 || WiiSettings.videoZoomVert > 1.5)
 		WiiSettings.videoZoomVert = 1;
-	if(WiiSettings.videoXshift < -50 || WiiSettings.videoXshift > 50)
+	if (WiiSettings.videoXshift < -50 || WiiSettings.videoXshift > 50)
 		WiiSettings.videoXshift = 0;
-	if(WiiSettings.videoYshift < -50 || WiiSettings.videoYshift > 50)
+	if (WiiSettings.videoYshift < -50 || WiiSettings.videoYshift > 50)
 		WiiSettings.videoYshift = 0;
-	if(WiiSettings.frameDropping < 0 || WiiSettings.frameDropping > FRAMEDROPPING_ALWAYS)
+	if (WiiSettings.frameDropping < 0 || WiiSettings.frameDropping > FRAMEDROPPING_ALWAYS)
 		WiiSettings.frameDropping = FRAMEDROPPING_DISABLED;
-	if(WiiSettings.aspectRatio <= 0 || WiiSettings.aspectRatio > 2.36)
+	if (WiiSettings.aspectRatio <= 0 || WiiSettings.aspectRatio > 2.36)
 		WiiSettings.aspectRatio = -2;
-	if(WiiSettings.cacheFill < 10 || WiiSettings.cacheFill > 100)
+	if (WiiSettings.cacheFill < 10 || WiiSettings.cacheFill > 100)
 		WiiSettings.cacheFill = 30;
-	if(WiiSettings.videoFull < 0 || WiiSettings.videoFull > 1)
+	if (WiiSettings.videoFull < 0 || WiiSettings.videoFull > 1)
 		WiiSettings.videoFull = 0;
-	if(WiiSettings.audioNorm < 0 || WiiSettings.audioNorm > 2)
+	if (WiiSettings.audioNorm < 0 || WiiSettings.audioNorm > 2)
 		WiiSettings.audioNorm = 0;
-	if(WiiSettings.videoDf < 0 || WiiSettings.videoDf > 1)
+	if (WiiSettings.videoDf < 0 || WiiSettings.videoDf > 1)
 		WiiSettings.videoDf = 0;
-	if(WiiSettings.viWidth < 0 || WiiSettings.viWidth > 1)
+	if (WiiSettings.viWidth < 0 || WiiSettings.viWidth > 1)
 		WiiSettings.viWidth = 0;
-	if(WiiSettings.skipLoop < 0 || WiiSettings.skipLoop > 1)
+	if (WiiSettings.skipLoop < 0 || WiiSettings.skipLoop > 1)
 		WiiSettings.skipLoop = 0;
-	if(WiiSettings.interlaceHandle < 0 || WiiSettings.interlaceHandle > 2)
+	if (WiiSettings.interlaceHandle < 0 || WiiSettings.interlaceHandle > 2)
 		WiiSettings.interlaceHandle = 0;
 
-	if(WiiSettings.audioLanguage[0] != 0)
+	if (WiiSettings.audioLanguage[0] != 0)
 	{
 		bool found = false;
-		
-		for(int i=0; i < LANGUAGE_SIZE; i++)
+
+		for (int i = 0; i < LANGUAGE_SIZE; i++)
 		{
-			if(strcmp(WiiSettings.audioLanguage, languages[i].abbrev) == 0)
+			if (strcmp(WiiSettings.audioLanguage, languages[i].abbrev) == 0)
 			{
 				found = true;
 				break;
 			}
 		}
-		if(!found)
+		if (!found)
 			WiiSettings.audioLanguage[0] = 0;
 	}
 
-	if(WiiSettings.audioDelay < -2 || WiiSettings.audioDelay > 2)
+	if (WiiSettings.audioDelay < -2 || WiiSettings.audioDelay > 2)
 		WiiSettings.audioDelay = 0;
-	if(WiiSettings.autoResume != 1 && WiiSettings.autoResume != 0)
+	if (WiiSettings.autoResume != 1 && WiiSettings.autoResume != 0)
 		WiiSettings.autoResume = 1;
-	if(WiiSettings.autoPlayNextVideo < 0 || WiiSettings.autoPlayNextVideo > AUTOPLAY_CONTINUOUS)
+	if (WiiSettings.autoPlayNextVideo < 0 || WiiSettings.autoPlayNextVideo > AUTOPLAY_CONTINUOUS)
 		WiiSettings.autoPlayNextVideo = AUTOPLAY_OFF;
-	if(WiiSettings.skipBackward < 5 || WiiSettings.skipBackward > 1200)
+	if (WiiSettings.skipBackward < 5 || WiiSettings.skipBackward > 1200)
 		WiiSettings.skipBackward = 10;
-	if(WiiSettings.skipForward < 5 || WiiSettings.skipForward > 1200)
+	if (WiiSettings.skipForward < 5 || WiiSettings.skipForward > 1200)
 		WiiSettings.skipForward = 30;
 	CleanupPath(WiiSettings.videosFolder);
 
 	// Music
-	if(WiiSettings.playOrder < 0 || WiiSettings.playOrder > PLAY_THROUGH)
+	if (WiiSettings.playOrder < 0 || WiiSettings.playOrder > PLAY_THROUGH)
 		WiiSettings.playOrder = PLAY_SINGLE;
-	if(WiiSettings.nativeLoops < 0 || WiiSettings.nativeLoops > 9999)
+	if (WiiSettings.nativeLoops < 0 || WiiSettings.nativeLoops > 9999)
 		WiiSettings.nativeLoops = 0;
 	CleanupPath(WiiSettings.musicFolder);
 
 	// DVD
-	if(WiiSettings.dvdMenu != 0 && WiiSettings.dvdMenu > 12)
+	if (WiiSettings.dvdMenu != 0 && WiiSettings.dvdMenu > 12)
 		WiiSettings.dvdMenu = 1;
-	if(WiiSettings.dvdDisabled != 0 && WiiSettings.dvdDisabled != 1)
+	if (WiiSettings.dvdDisabled != 0 && WiiSettings.dvdDisabled != 1)
 		WiiSettings.dvdDisabled = 0;
-	//if(WiiSettings.dvdSyncType < 0 || WiiSettings.dvdSyncType > 2)
-		//WiiSettings.dvdSyncType = 0;
+	// if(WiiSettings.dvdSyncType < 0 || WiiSettings.dvdSyncType > 2)
+	// WiiSettings.dvdSyncType = 0;
 
 	// Online Media
-	if(WiiSettings.onlineCacheFill < 5 || WiiSettings.onlineCacheFill > 100)
+	if (WiiSettings.onlineCacheFill < 5 || WiiSettings.onlineCacheFill > 100)
 		WiiSettings.onlineCacheFill = 20;
 
-	if(!IsOnlineMediaPath(WiiSettings.onlinemediaFolder))
+	if (!IsOnlineMediaPath(WiiSettings.onlinemediaFolder))
 		CleanupPath(WiiSettings.onlinemediaFolder);
-	
-	if(WiiSettings.yggdrasilQuality < 0 || WiiSettings.yggdrasilQuality > 4)
+
+	if (WiiSettings.yggdrasilQuality < 0 || WiiSettings.yggdrasilQuality > 4)
 		WiiSettings.yggdrasilQuality = 1;
-	
-	if(WiiSettings.anisonfmQuality < 0 || WiiSettings.anisonfmQuality > 300)
+
+	if (WiiSettings.anisonfmQuality < 0 || WiiSettings.anisonfmQuality > 300)
 		WiiSettings.anisonfmQuality = ANISON_TUNEIN_ANISON;
-	
-	if(WiiSettings.onlineBanners < 0 || WiiSettings.onlineBanners > 1)
+
+	if (WiiSettings.onlineBanners < 0 || WiiSettings.onlineBanners > 1)
 		WiiSettings.onlineBanners = 1;
 
 	// Network
-	for(int i=0; i<MAX_SHARES; i++)
+	for (int i = 0; i < MAX_SHARES; i++)
 	{
-		if(WiiSettings.ftpConf[i].port < 4 || WiiSettings.ftpConf[i].port > 49151)
+		if (WiiSettings.ftpConf[i].port < 4 || WiiSettings.ftpConf[i].port > 49151)
 			WiiSettings.ftpConf[i].port = 21;
 
-		if(WiiSettings.ftpConf[i].passive != 0) // disable PASV support
+		if (WiiSettings.ftpConf[i].passive != 0) // disable PASV support
 			WiiSettings.ftpConf[i].passive = 0;
 	}
-	
+
 	// Subtitles
-	if(WiiSettings.subtitleVisibility < 0 || WiiSettings.subtitleVisibility > 1)
+	if (WiiSettings.subtitleVisibility < 0 || WiiSettings.subtitleVisibility > 1)
 		WiiSettings.subtitleVisibility = 1;
-	if(WiiSettings.subtitleDelay < -60 || WiiSettings.subtitleDelay > 60)
+	if (WiiSettings.subtitleDelay < -60 || WiiSettings.subtitleDelay > 60)
 		WiiSettings.subtitleDelay = 0;
 
-	if(WiiSettings.subtitleLanguage[0] != 0)
+	if (WiiSettings.subtitleLanguage[0] != 0)
 	{
 		bool found = false;
-		
-		for(int i=0; i < LANGUAGE_SIZE; i++)
+
+		for (int i = 0; i < LANGUAGE_SIZE; i++)
 		{
-			if(strcmp(WiiSettings.subtitleLanguage, languages[i].abbrev) == 0)
+			if (strcmp(WiiSettings.subtitleLanguage, languages[i].abbrev) == 0)
 			{
 				found = true;
 				break;
 			}
 		}
-		if(!found)
+		if (!found)
 			WiiSettings.subtitleLanguage[0] = 0;
 	}
 
-	if(WiiSettings.subtitleCodepage[0] != 0)
+	if (WiiSettings.subtitleCodepage[0] != 0)
 	{
 		bool found = false;
-		for(int i=0; i < CODEPAGE_SIZE; i++)
+		for (int i = 0; i < CODEPAGE_SIZE; i++)
 		{
-			if(strcmp(WiiSettings.subtitleCodepage, codepages[i].cpname) == 0)
+			if (strcmp(WiiSettings.subtitleCodepage, codepages[i].cpname) == 0)
 			{
 				found = true;
 				break;
 			}
 		}
-		if(!found)
+		if (!found)
 			WiiSettings.subtitleCodepage[0] = 0;
 	}
-	
-	if(WiiSettings.subtitleColor[0] == 0 || strlen(WiiSettings.subtitleColor) < 8 ||
-	(strcmp(WiiSettings.subtitleColor, "00000000") != 0 && 
-		strcmp(WiiSettings.subtitleColor, "FFFFFF00") != 0 && 
-		strcmp(WiiSettings.subtitleColor, "FFFF0000") != 0 && 
-		strcmp(WiiSettings.subtitleColor, "FF000000") != 0))
+
+	if (WiiSettings.subtitleColor[0] == 0 || strlen(WiiSettings.subtitleColor) < 8 ||
+		(strcmp(WiiSettings.subtitleColor, "00000000") != 0 &&
+		 strcmp(WiiSettings.subtitleColor, "FFFFFF00") != 0 &&
+		 strcmp(WiiSettings.subtitleColor, "FFFF0000") != 0 &&
+		 strcmp(WiiSettings.subtitleColor, "FF000000") != 0))
 		sprintf(WiiSettings.subtitleColor, "FFFFFF00");
-	
-	if(WiiSettings.subtitleSize > 5 || WiiSettings.subtitleSize < 1)
+
+	if (WiiSettings.subtitleSize > 5 || WiiSettings.subtitleSize < 1)
 		WiiSettings.subtitleSize = 2.0;
-	
-	if(WiiSettings.borderstyle < 0 || WiiSettings.borderstyle > 4)
+
+	if (WiiSettings.borderstyle < 0 || WiiSettings.borderstyle > 4)
 		WiiSettings.borderstyle = 0;
-	if(WiiSettings.outline < -1 || WiiSettings.outline > 10)
+	if (WiiSettings.outline < -1 || WiiSettings.outline > 10)
 		WiiSettings.outline = -1;
-	if(WiiSettings.shadow < -1 || WiiSettings.shadow > 10)
+	if (WiiSettings.shadow < -1 || WiiSettings.shadow > 10)
 		WiiSettings.shadow = -1;
-	if(WiiSettings.bold < 0 || WiiSettings.bold > 1)
+	if (WiiSettings.bold < 0 || WiiSettings.bold > 1)
 		WiiSettings.bold = 0;
-	if(WiiSettings.monofont < 0 || WiiSettings.monofont > 1)
+	if (WiiSettings.monofont < 0 || WiiSettings.monofont > 1)
 		WiiSettings.monofont = 0;
 }
 
 /****************************************************************************
  * Save settings
  ***************************************************************************/
-bool
-SaveSettings (bool silent)
+bool SaveSettings(bool silent)
 {
-	char filepath[1024] = { 0 };
+	char filepath[1024] = {0};
 	wchar_t msg[512];
 	int datasize;
 	int offset = 0;
 	DIR *dir = NULL;
 	char path[6][MAXPATHLEN];
-	int d=0;
+	int d = 0;
 
 	// We'll save using the first available method (probably SD) since this
 	// is the method settings will be loaded from by default
 
-	if(appPath[0] != 0)
+	if (appPath[0] != 0)
 	{
 		sprintf(filepath, "%s/settings.xml", appPath);
 	}
 	else
 	{
 		// populate list of potential paths
-		if(CheckMount(DEVICE_SD, 1))
+		if (CheckMount(DEVICE_SD, 1))
 			sprintf(path[d++], "sd1:/apps/%s", APPFOLDER);
 
-		for(int m=1; m<6; m++)
+		for (int m = 1; m < 6; m++)
 		{
-			if(!CheckMount(DEVICE_USB, m))
+			if (!CheckMount(DEVICE_USB, m))
 				break;
 
 			sprintf(path[d++], "usb%d:/apps/%s", m, APPFOLDER);
 		}
 
 		// no devices found
-		if(d == 0)
+		if (d == 0)
 		{
-			if(!silent)
+			if (!silent)
 				ErrorPrompt("Could not find a valid SD or USB device - one is required for normal operation.");
 			return false;
 		}
 
 		// try paths
-		for(int i=0; i<d; i++)
+		for (int i = 0; i < d; i++)
 		{
 			dir = opendir(path[i]);
 
-			if(!dir)
+			if (!dir)
 				continue;
 
 			sprintf(filepath, path[i]);
@@ -1106,9 +1110,9 @@ SaveSettings (bool silent)
 		}
 
 		// existing path not found - try to create path
-		if(filepath[0] == 0)
+		if (filepath[0] == 0)
 		{
-			if(CheckMount(DEVICE_SD, 1))
+			if (CheckMount(DEVICE_SD, 1))
 				strcpy(filepath, "sd1:");
 			else
 				strcpy(filepath, "usb1:");
@@ -1118,9 +1122,9 @@ SaveSettings (bool silent)
 			dir = opendir(filepath);
 			if (!dir)
 			{
-				if(mkdir(filepath, 0777) != 0)
+				if (mkdir(filepath, 0777) != 0)
 				{
-					if(!silent)
+					if (!silent)
 					{
 						swprintf(msg, 512, L"%s %s", gettext("Could not create folder"), filepath);
 						ErrorPrompt(msg);
@@ -1138,9 +1142,9 @@ SaveSettings (bool silent)
 			dir = opendir(filepath);
 			if (!dir)
 			{
-				if(mkdir(filepath, 0777) != 0)
+				if (mkdir(filepath, 0777) != 0)
 				{
-					if(!silent)
+					if (!silent)
 					{
 						swprintf(msg, 512, L"%s %s", gettext("Could not create folder"), filepath);
 						ErrorPrompt(msg);
@@ -1157,12 +1161,12 @@ SaveSettings (bool silent)
 	}
 
 	if (!silent)
-		ShowAction ("Saving settings...");
+		ShowAction("Saving settings...");
 
 	FixInvalidSettings();
 	savebuffer = (char *)mem2_malloc(SAVEBUFFERSIZE, MEM2_OTHER);
 
-	if(savebuffer)
+	if (savebuffer)
 	{
 		memset(savebuffer, 0, SAVEBUFFERSIZE);
 		datasize = prepareSettingsData();
@@ -1170,20 +1174,20 @@ SaveSettings (bool silent)
 		mem2_free(savebuffer, MEM2_OTHER);
 	}
 
-	if(!silent)
+	if (!silent)
 		CancelAction();
 
 	if (offset > 0)
 	{
 		strcpy(appPath, filepath); // save successful path
-		char * end = strrchr(appPath, '/');
+		char *end = strrchr(appPath, '/');
 		end[0] = 0; // strip filename
 
 		// save restore points
-		sprintf(filepath,"%s/%s",appPath,"restore_points");
-		char * buff = wiiSaveRestorePoints(filepath);
+		sprintf(filepath, "%s/%s", appPath, "restore_points");
+		char *buff = wiiSaveRestorePoints(filepath);
 
-		if(buff)
+		if (buff)
 		{
 			SaveFile(buff, filepath, strlen(buff), SILENT);
 			mem2_free(buff, MEM2_OTHER);
@@ -1191,7 +1195,7 @@ SaveSettings (bool silent)
 		return true;
 	}
 
-	if(!silent)
+	if (!silent)
 	{
 		swprintf(msg, 512, L"%s %s", gettext("Could not save settings to"), filepath);
 		ErrorPrompt(msg);
@@ -1202,14 +1206,14 @@ SaveSettings (bool silent)
 /****************************************************************************
  * Load settings from specified file
  ***************************************************************************/
-static bool LoadSettingsFile(char * filepath)
+static bool LoadSettingsFile(char *filepath)
 {
 	bool result = false;
 	int offset = 0;
 
 	savebuffer = (char *)mem2_malloc(SAVEBUFFERSIZE, MEM2_OTHER);
 
-	if(!savebuffer)
+	if (!savebuffer)
 		return false;
 
 	memset(savebuffer, 0, SAVEBUFFERSIZE);
@@ -1219,16 +1223,16 @@ static bool LoadSettingsFile(char * filepath)
 	{
 		xml = mxmlLoadString(NULL, savebuffer, MXML_TEXT_CALLBACK);
 
-		if(xml)
+		if (xml)
 		{
 			// check settings version
 			// we don't do anything with the version #, but we'll store it anyway
 			item = mxmlFindElement(xml, xml, "file", "version", NULL, MXML_DESCEND);
-			if(item) // a version entry exists
+			if (item) // a version entry exists
 			{
-				const char * version = mxmlElementGetAttr(item, "version");
+				const char *version = mxmlElementGetAttr(item, "version");
 
-				if(version && strlen(version) == 5)
+				if (version && strlen(version) == 5)
 				{
 					// this code assumes version in format X.X.X
 					// XX.X.X, X.XX.X, or X.X.XX will NOT work
@@ -1240,22 +1244,21 @@ static bool LoadSettingsFile(char * filepath)
 					int curPoint = APPVERSION[4] - '0';
 
 					// first we'll check that the versioning is valid
-					if(!(verMajor >= 0 && verMajor <= 9 &&
-						verMinor >= 0 && verMinor <= 9 &&
-						verPoint >= 0 && verPoint <= 9))
+					if (!(verMajor >= 0 && verMajor <= 9 &&
+						  verMinor >= 0 && verMinor <= 9 &&
+						  verPoint >= 0 && verPoint <= 9))
 						result = false;
-					else if(verMajor < 1) // less than version 1.0.0
-						result = false; // reset settings
-					else if((verMajor*100 + verMinor*10 + verPoint) > 
-							(curMajor*100 + curMinor*10 + curPoint)) // some future version
-						result = false; // reset settings
+					else if (verMajor < 1) // less than version 1.0.0
+						result = false;	   // reset settings
+					else if ((verMajor * 100 + verMinor * 10 + verPoint) >
+							 (curMajor * 100 + curMinor * 10 + curPoint)) // some future version
+						result = false;									  // reset settings
 					else
 						result = true;
 				}
 			}
-						
 
-			if(result)
+			if (result)
 			{
 				// Global
 				loadXMLSetting(&WiiSettings.language, "language");
@@ -1309,7 +1312,7 @@ static bool LoadSettingsFile(char * filepath)
 				// DVD
 				loadXMLSetting(&WiiSettings.dvdMenu, "dvdMenu");
 				loadXMLSetting(&WiiSettings.dvdDisabled, "dvdDisabled");
-			//	loadXMLSetting(&WiiSettings.dvdSyncType, "dvdSyncType");
+				//	loadXMLSetting(&WiiSettings.dvdSyncType, "dvdSyncType");
 				// Online Media
 				loadXMLSetting(&WiiSettings.onlineCacheFill, "onlineCacheFill");
 				loadXMLSetting(WiiSettings.onlinemediaFolder, "onlinemediaFolder", sizeof(WiiSettings.onlinemediaFolder));
@@ -1317,13 +1320,13 @@ static bool LoadSettingsFile(char * filepath)
 				loadXMLSetting(&WiiSettings.anisonfmQuality, "anisonfmQuality");
 				loadXMLSetting(&WiiSettings.onlineBanners, "onlineBanners");
 				// Network
-				
-				for(int i=0; i<MAX_SHARES; i++)
+
+				for (int i = 0; i < MAX_SHARES; i++)
 				{
 					loadXMLSMBShare(i);
 					loadXMLFTPSite(i);
 				}
-				
+
 				// Subtitles
 				loadXMLSetting(&WiiSettings.subtitleVisibility, "subtitleVisibility");
 				loadXMLSetting(&WiiSettings.subtitleDelay, "subtitleDelay");
@@ -1353,10 +1356,10 @@ bool LoadSettings()
 {
 	static bool settingsLoaded = false;
 
-	if(settingsLoaded) // already attempted loading
+	if (settingsLoaded) // already attempted loading
 		return true;
 
-	if(appPath[0] == 0)
+	if (appPath[0] == 0)
 		return false;
 
 	bool settingsFound = false;
@@ -1368,7 +1371,7 @@ bool LoadSettings()
 	LoadOnlineMediaFile(filepath);
 
 	settingsLoaded = true; // attempted to load settings
-	if(settingsFound)
+	if (settingsFound)
 	{
 		FixInvalidSettings();
 		ChangeLanguage();
@@ -1376,30 +1379,31 @@ bool LoadSettings()
 		wiiSetVIscale();
 		wiiSetDf();
 		wiiSetDoubleStrike();
-		if(!WiiSettings.doubleStrike)
+		if (!WiiSettings.doubleStrike)
 			wiiSet576p();
-		//if(WiiSettings.duplicateFrame > 0)
-			//wiiDup();
-		if(WiiSettings.night == 1)
+		// if(WiiSettings.duplicateFrame > 0)
+		// wiiDup();
+		if (WiiSettings.night == 1)
 			nightfade_cb();
-		
-		if(WiiSettings.tiledRender == 1)
+
+		if (WiiSettings.tiledRender == 1)
 			wiiSetTiledVar();
-		else if(WiiSettings.tiledRender == 2) { // Automatic
+		else if (WiiSettings.tiledRender == 2)
+		{ // Automatic
 			wiiSetTiledVar();
 			wiiSetTiledAuto();
 		}
-		
-		if(WiiSettings.debug == 5)
+
+		if (WiiSettings.debug == 5)
 			WPAD_SetDataFormat(WPAD_CHAN_0, WPAD_FMT_BTNS_ACC);
 
-		sprintf(filepath,"%s/restore_points", appPath);
-		char *buffer = (char *)mem2_malloc(50*1024, MEM2_OTHER);
+		sprintf(filepath, "%s/restore_points", appPath);
+		char *buffer = (char *)mem2_malloc(50 * 1024, MEM2_OTHER);
 
-		if(buffer)
+		if (buffer)
 		{
-			int size = LoadFile(buffer, 50*1024, filepath, SILENT);
-			if(size > 0)
+			int size = LoadFile(buffer, 50 * 1024, filepath, SILENT);
+			if (size > 0)
 				wiiLoadRestorePoints(buffer, size);
 			mem2_free(buffer, MEM2_OTHER);
 		}

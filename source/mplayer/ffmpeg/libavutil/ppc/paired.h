@@ -21,7 +21,9 @@
 #ifndef AVUTIL_PPC_PAIRED_H
 #define AVUTIL_PPC_PAIRED_H
 
-#include <paired.h>
+/* paired.h from libogc is not reliably available in all build environments */
+/* The type definitions and macros in this file are self-contained */
+/* #include <paired.h> */
 
 typedef float vec_f32_t __attribute__((vector_size(8)));
 typedef unsigned char vec_u8_t __attribute__((vector_size(2)));
