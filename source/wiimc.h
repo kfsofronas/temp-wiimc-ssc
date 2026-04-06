@@ -15,7 +15,7 @@
 #define APPVERSION		"3.0.0"
 #define APPFOLDER		"wiimc"
 #ifndef MAXPATHLEN
-#define MAXPATHLEN 		1024
+#define MAXPATHLEN 		255
 #endif
 
 enum {
