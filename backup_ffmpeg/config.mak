@@ -65,7 +65,7 @@ ARCH = ppc
 ARCH_PPC = yes
 
 HAVE_FAST_CLZ = yes
-HAVE_PAIRED = yes
+HAVE_PAIRED = no
 
 MENCODER = no
 MPLAYER  = yes
