@@ -64,12 +64,12 @@ LANG languages[LANGUAGE_SIZE] = {
 	{ "Dansk", "da", "dan" },*/
 	{ "English", "en", "eng" },
 	//{ "Esperanto", "eo", "epo" },
-	{ "Español", "es", "spa" },
+	{ "Espaï¿½ol", "es", "spa" },
 	/*{ "Estonian", "et", "est" },
 	{ "Finnish", "fi", "fin" },
 	{ "Fiji", "fj", "fij" },
 	{ "Faroese", "fo", "fao" }, */
-	{ "Français", "fr", "fre" },
+	{ "Franï¿½ais", "fr", "fre" },
 /*	{ "Frisian", "fy", "fry" },
 	{ "Galician", "gl", "glg" },
 	{ "Georgian", "ka", "geo" },
@@ -293,7 +293,7 @@ static const char * XMLSaveCallback(mxml_node_t *node, int where)
 {
 	const char *name;
 
-	name = node->value.element.name;
+	name = mxmlGetElement(node);
 
 	if(where == MXML_WS_BEFORE_CLOSE)
 	{
